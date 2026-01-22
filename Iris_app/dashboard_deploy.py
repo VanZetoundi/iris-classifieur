@@ -5,6 +5,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
+import os
+from pathlib import Path
 
 # Configuration de la page
 st.set_page_config(
@@ -17,13 +19,23 @@ st.set_page_config(
 # Titre et introduction
 st.title("🌸 Classificateur de fleurs Iris")
 
-# Chargement du modèle et du scaler
+# Chemin de base : dossier où se trouve le script courant
+BASE_DIR = Path(__file__).resolve().parent
+
+# Chemins corrects en fonction de ta structure actuelle
+MODEL_DIR = BASE_DIR / "Iris_app" / "model"
+
+MODEL_PATH = MODEL_DIR / "iris_model.pkl"
+SCALER_PATH = MODEL_DIR / "scaler.pkl"
+# SPECIES_PATH = MODEL_DIR / "iris_species.txt"   # si tu l'utilises
+
+# Puis charge comme ça :
 @st.cache_resource
 def load_model_and_scaler():
     try:
-        with open('model/iris_model.pkl', 'rb') as f:
+        with open(MODEL_PATH, 'rb') as f:
             model = pickle.load(f)
-        with open('model/scaler.pkl', 'rb') as f:
+        with open(SCALER_PATH, 'rb') as f:
             scaler = pickle.load(f)
         return model, scaler
     except Exception as e:
