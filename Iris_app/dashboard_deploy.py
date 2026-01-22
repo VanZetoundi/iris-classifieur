@@ -19,17 +19,9 @@ st.set_page_config(
 # Titre et introduction
 st.title("🌸 Classificateur de fleurs Iris")
 
-# Chemin de base : dossier où se trouve le script courant
-BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = "Iris_app/model/iris_model.pkl"
+SCALER_PATH = "Iris_app/model/scaler.pkl"
 
-# Chemins corrects en fonction de ta structure actuelle
-MODEL_DIR = BASE_DIR / "Iris_app" / "model"
-
-MODEL_PATH = MODEL_DIR / "iris_model.pkl"
-SCALER_PATH = MODEL_DIR / "scaler.pkl"
-# SPECIES_PATH = MODEL_DIR / "iris_species.txt"   # si tu l'utilises
-
-# Puis charge comme ça :
 @st.cache_resource
 def load_model_and_scaler():
     try:
@@ -39,9 +31,9 @@ def load_model_and_scaler():
             scaler = pickle.load(f)
         return model, scaler
     except Exception as e:
-        st.error(f"Erreur lors du chargement du modèle : {e}")
+        st.error(f"Erreur lors du chargement du modèle : {str(e)}")
         st.stop()
-
+        
 model, scaler = load_model_and_scaler()
 
 # Liste des espèces (hardcodée car très stable)
