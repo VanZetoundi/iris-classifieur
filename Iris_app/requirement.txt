@@ -1,0 +1,9 @@
+flask
+flask-cors
+requests
+streamlit
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
